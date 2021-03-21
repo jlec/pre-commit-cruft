@@ -58,7 +58,7 @@ publish:
 
 check: lint
 
-pre-commit:
+pre-commit: setup-dev.done
 	$(PIPENV) pre-commit run --all-files
 
 lint: linting
