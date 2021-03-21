@@ -1,0 +1,5 @@
+---
+- id: cruft
+  name: Check cruft state
+  description: Cruft for cookiecutter provides a convenient cookie versioning
+  entry: cruft check
