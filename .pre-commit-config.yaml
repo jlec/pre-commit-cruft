@@ -1,24 +1,109 @@
+---
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+default_stages: [pre-commit]
+exclude: >
+  (?x)^(
+  .pytest_cache|
+  .ruff_cache|
+  .terraform|
+  .vscode/launch.json|
+  data
+  )
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: "v4.1.0"
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-json
-      - id: check-toml
-      - id: check-yaml
+      - id: commitizen
+        stages:
+          - commit-msg
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v5.0.0"
+    hooks:
       - id: check-added-large-files
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      # - id: pretty-format-json
+      #   args: ["--autofix"]
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-xml
+      - id: check-yaml
+      - id: debug-statements
+      - id: destroyed-symlinks
+      - id: detect-aws-credentials
+        args: ["--allow-missing-credentials"]
+      - id: detect-private-key
+      # - id: double-quote-string-fixer
+      - id: end-of-file-fixer
+        exclude: "charts/README.md"
+      - id: file-contents-sorter
+      - id: fix-byte-order-marker
+      - id: fix-encoding-pragma
+        args: ["--remove"]
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+      - id: name-tests-test
+      # - id: no-commit-to-branch
+      - id: requirements-txt-fixer
+      - id: sort-simple-yaml
+      - id: trailing-whitespace
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.26.0
+    rev: "v1.35.1"
     hooks:
       - id: yamllint
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.5
+  # - repo: https://github.com/jumanjihouse/pre-commit-hooks
+  #   rev: 3.0.0
+  - repo: https://github.com/jlec/pre-commit-hooks
+    rev: "gh-111"
     hooks:
+      # - id: bundler-audit
+      - id: check-mailmap
+      # - id: fasterer
+      - id: forbid-binary
+      # - id: forbid-space-in-indent
+      # - id: git-check
+      # - id: git-dirty
+      # - id: markdownlint
+      # - id: protect-first-parent
+      # - id: reek
+      # - id: require-ascii
+      # - id: rubocop
       - id: shellcheck
-  - repo: https://github.com/psf/black
-    rev: 20.8b1
+      # - id: script-must-have-extension
+      # - id: script-must-not-have-extension
+      - id: shfmt
+  - repo: https://github.com/hadolint/hadolint
+    rev: "v2.13.1-beta"
     hooks:
-      - id: black
+      - id: hadolint-docker
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: "v0.9.3"
+    hooks:
+      - id: taplo-lint
+      - id: taplo-format
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: "v8.22.1"
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: "0.30.0"
+    hooks:
+      - id: check-github-workflows
+  - repo: https://github.com/gitguardian/ggshield
+    rev: "v1.34.0"
+    hooks:
+      - id: ggshield
+        stages: ["pre-push"]
+  - repo: https://github.com/jlec/pre-commit-cruft
+    rev: "v0.1.1"
+    hooks:
+      - id: cruft
+        stages: ["pre-push"]

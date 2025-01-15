@@ -1,0 +1,148 @@
+---
+# https://taskfile.dev
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+env:
+  PY_PM: poetry
+  PY_RUNNER: poetry run
+  PYTESTARGS: -vvl --workers auto
+  BLACKARGS: --line-length 128 --check --diff
+
+tasks:
+  default:
+    cmds:
+      - cmd: task -l
+
+  #############################################################################
+  #
+  # Environment Setup
+  #
+  #############################################################################
+  setup:
+    desc: Setup environment
+    cmds:
+      - task: setup-python-env
+      - task: setup-pre-commit
+
+  setup-python-env:
+    desc: Setup Python environment
+    cmds:
+      - cmd: $PY_PM update
+
+  setup-pre-commit:
+    desc: Setup Pre-Commit environment
+    cmds:
+      - cmd: $PY_RUNNER pre-commit install
+      - cmd: $PY_RUNNER pre-commit install --install-hooks
+      - cmd: $PY_RUNNER pre-commit install --hook-type commit-msg
+      - cmd: $PY_RUNNER pre-commit install --hook-type pre-push
+      - task: ansible-init
+
+  ansible-init:
+    desc: Setup ansible
+    cmds:
+      - cmd: echo "No Ansible support"
+
+  #############################################################################
+  #
+  # Release management
+  #
+  #############################################################################
+  release:
+    desc: Release MINOR version bump
+    cmds:
+      - cmd: $PY_RUNNER cz bump --check-consistency --increment MINOR --no-verify
+
+  release-major:
+    desc: Release MAJOR version bump
+    cmds:
+      - cmd: $PY_RUNNER cz bump --check-consistency --increment MAJOR --no-verify
+
+  release-patch:
+    desc: Release PATCH version bump
+    cmds:
+      - cmd: $PY_RUNNER cz bump --check-consistency --increment PATCH --no-verify
+
+  publish:
+    desc: Push to remote
+    cmds:
+      - cmd: git push -v --progress
+      - cmd: git push -v --progress --tags
+
+  #############################################################################
+  #
+  # Cookies options
+  #
+  #############################################################################
+  cruft-update:
+    desc: Update the cookies
+    cmds:
+      - cmd: git stash push -m cruft-update
+      - cmd: $PY_RUNNER cruft update --allow-untracked-files --skip-apply-ask
+      - cmd: if test -d control; then pushd control >/dev/null && task init && popd; fi
+      - cmd: if test -d deployment; then pushd deployment >/dev/null && task init && popd; fi
+      - task: prettier
+      - cmd: $PY_RUNNER pre-commit run -a terraform_docs
+      - cmd: git stash list | grep -q cruft-update && git stash pop >/dev/null || true
+
+  cruft-push:
+    desc: Push the cookies
+    cmds:
+      - cmd: 'git ci -a -m "chore(cruft): update to latest cruft state"'
+
+  cruft-reset:
+    desc: Reset cruft
+    cmds:
+      - cmd: cruft diff | git apply
+
+  #############################################################################
+  #
+  # Checking and Linting
+  #
+  #############################################################################
+  prettier:
+    desc: Run prettier
+    cmds:
+      - cmd: prettier -w .
+  check:
+    desc: Run pre-commit
+    deps:
+      - lint
+  lint:
+    desc: Run pre-commit
+    deps:
+      - linting
+  linting:
+    desc: Run pre-commit
+    cmds:
+      - task: pre-commit
+
+  pre-commit:
+    desc: Run pre-commit
+    cmds:
+      - cmd: $PY_RUNNER pre-commit run --hook-stage commit --all-files
+      - cmd: $PY_RUNNER pre-commit run --hook-stage push --all-files
+      - cmd: $PY_RUNNER pre-commit run --hook-stage manual --all-files
+
+  test:
+    desc: Run pytest
+    deps:
+      - pytest
+
+  pytest:
+    desc: Run pytest
+    cmds:
+      - cmd: $PY_RUNNER pytest $PYTESTARGS tests
+
+  #############################################################################
+  #
+  # Custom options
+  #
+  #############################################################################
+  clean:
+    desc: Clean up
+    cmds:
+      - cmd: rm -rf dist
+      - cmd: rm -rf tmp
+      - cmd: git clean -fdx

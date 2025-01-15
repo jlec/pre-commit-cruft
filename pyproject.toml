@@ -1,0 +1,55 @@
+[tool.black]
+line-length = 128
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+update_changelog_on_bump = true
+version = "0.1.1"
+version_files = ["VERSION", "pyproject.toml:version"]
+
+[tool.poetry]
+authors = ["Justin Lecher <justin@jlec.de>"]
+description = "Pre-Commit hook for Cruft"
+license = "Apache-2.0"
+name = "pre_commit_cruft"
+package-mode = false
+readme = "README.md"
+version = "0.1.1"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+
+[tool.poetry.group.dev.dependencies]
+bandit = "^1"
+black = "^24"
+bpython = "^0"
+commitizen = "^4"
+cruft = "^2"
+pre-commit = "^4"
+pytest = "^8"
+pytest-clarity = "^1"
+pytest-parallel = "^0"
+pytest-xdist = "^3"
+ruff-lsp = "^0"
+toml-sort = "^0"
+
+[tool.ruff]
+exclude = ["obsolete"]
+line-length = 128
+
+[tool.ruff.lint]
+ignore = [
+  "B008", # do not perform function calls in argument defaults
+  "C901", # too complex
+]
+select = [
+  "B", # flake8-bugbear
+  "C", # flake8-comprehensions
+  "E", # pycodestyle errors
+  "F", # pyflakes
+  "I", # isort
+  "W", # pycodestyle warnings
+]
+
+[tool.ruff.lint.per-file-ignores]
