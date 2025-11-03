@@ -4,9 +4,9 @@
 version: "3"
 
 env:
-  PY_PM: poetry
-  PY_RUNNER: poetry run
-  PYTESTARGS: -vvl --workers auto
+  PY_PM: uv
+  PY_RUNNER: uv run
+  PYTESTARGS: -vvl --numprocesses auto
   BLACKARGS: --line-length 128 --check --diff
 
 tasks:
@@ -22,13 +22,13 @@ tasks:
   setup:
     desc: Setup environment
     cmds:
-      - task: setup-python-env
+      - task: setup-python
       - task: setup-pre-commit
 
-  setup-python-env:
-    desc: Setup Python environment
+  setup-python:
+    desc: Setup Python environment including dev dependencies
     cmds:
-      - cmd: $PY_PM update
+      - cmd: $PY_PM sync --upgrade --dev
 
   setup-pre-commit:
     desc: Setup Pre-Commit environment
@@ -43,7 +43,6 @@ tasks:
     desc: Setup ansible
     cmds:
       - cmd: echo "No Ansible support"
-
   #############################################################################
   #
   # Release management
@@ -83,7 +82,6 @@ tasks:
       - cmd: if test -d control; then pushd control >/dev/null && task init && popd; fi
       - cmd: if test -d deployment; then pushd deployment >/dev/null && task init && popd; fi
       - task: prettier
-      - cmd: $PY_RUNNER pre-commit run -a terraform_docs
       - cmd: git stash list | grep -q cruft-update && git stash pop >/dev/null || true
 
   cruft-push:

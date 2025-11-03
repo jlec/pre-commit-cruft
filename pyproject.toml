@@ -1,3 +1,26 @@
+[dependency-groups]
+dev = [
+  "bpython>=0.25",
+  "ptpython>=3.0.31",
+  "pytest-asyncio>=1.2.0",
+  "pytest-clarity>=1.0.1",
+  "pytest-xdist>=3.6.1",
+  "pytest>=8.3.5",
+]
+
+[project]
+dependencies = []
+description = "Pre-Commit hook for Cruft"
+license = "Apache-2.0"
+name = "pre_commit_cruft"
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+version = "0.1.1"
+
+[[project.authors]]
+email = "justin@jlec.de"
+name = "Justin Lecher"
+
 [tool.black]
 line-length = 128
 
@@ -8,48 +31,12 @@ update_changelog_on_bump = true
 version = "0.1.1"
 version_files = ["VERSION", "pyproject.toml:version"]
 
-[tool.poetry]
-authors = ["Justin Lecher <justin@jlec.de>"]
-description = "Pre-Commit hook for Cruft"
-license = "Apache-2.0"
-name = "pre_commit_cruft"
-package-mode = false
-readme = "README.md"
-version = "0.1.1"
-
-[tool.poetry.dependencies]
-python = ">=3.11,<4.0"
-
-[tool.poetry.group.dev.dependencies]
-bandit = "^1"
-black = "^25"
-bpython = "^0"
-commitizen = "^4"
-cruft = "^2"
-pre-commit = "^4"
-pytest = "^8"
-pytest-clarity = "^1"
-pytest-parallel = "^0"
-pytest-xdist = "^3"
-ruff-lsp = "^0"
-toml-sort = "^0"
-
 [tool.ruff]
 exclude = ["obsolete"]
 line-length = 128
 
 [tool.ruff.lint]
-ignore = [
-  "B008", # do not perform function calls in argument defaults
-  "C901", # too complex
-]
-select = [
-  "B", # flake8-bugbear
-  "C", # flake8-comprehensions
-  "E", # pycodestyle errors
-  "F", # pyflakes
-  "I", # isort
-  "W", # pycodestyle warnings
-]
+ignore = ["B008", "C901"]
+select = ["B", "C", "E", "F", "I", "W"]
 
 [tool.ruff.lint.per-file-ignores]
