@@ -15,7 +15,7 @@ license = "Apache-2.0"
 name = "pre_commit_cruft"
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
-version = "0.1.1"
+version = "0.1.2"
 
 [[project.authors]]
 email = "justin@jlec.de"
@@ -28,7 +28,7 @@ line-length = 128
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
-version = "0.1.1"
+version = "0.1.2"
 version_files = ["VERSION", "pyproject.toml:version"]
 
 [tool.ruff]
