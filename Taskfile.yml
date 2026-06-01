@@ -6,8 +6,6 @@ version: "3"
 env:
   PY_PM: uv
   PY_RUNNER: uv run
-  PYTESTARGS: -vvl --numprocesses auto
-  BLACKARGS: --line-length 128 --check --diff
 
 tasks:
   default:
@@ -24,6 +22,7 @@ tasks:
     cmds:
       - task: setup-python
       - task: setup-pre-commit
+      - cmd: rm -vf .git/hooks/*legacy
 
   setup-python:
     desc: Setup Python environment including dev dependencies
@@ -33,10 +32,10 @@ tasks:
   setup-pre-commit:
     desc: Setup Pre-Commit environment
     cmds:
-      - cmd: $PY_RUNNER pre-commit install
-      - cmd: $PY_RUNNER pre-commit install --install-hooks
-      - cmd: $PY_RUNNER pre-commit install --hook-type commit-msg
-      - cmd: $PY_RUNNER pre-commit install --hook-type pre-push
+      - cmd: prek install
+      - cmd: prek install --install-hooks
+      - cmd: prek install --hook-type commit-msg
+      - cmd: prek install --hook-type pre-push
       - task: ansible-init
 
   ansible-init:
@@ -87,7 +86,7 @@ tasks:
   cruft-push:
     desc: Push the cookies
     cmds:
-      - cmd: 'git ci -a -m "chore(cruft): update to latest cruft state"'
+      - cmd: "git ci -a -m \"chore(cruft): update to latest cruft state\""
 
   cruft-reset:
     desc: Reset cruft
@@ -103,6 +102,8 @@ tasks:
     desc: Run prettier
     cmds:
       - cmd: prettier -w .
+      - cmd: yamlfmt .
+      - cmd: biome format --fix .
   check:
     desc: Run pre-commit
     deps:
@@ -119,9 +120,9 @@ tasks:
   pre-commit:
     desc: Run pre-commit
     cmds:
-      - cmd: $PY_RUNNER pre-commit run --hook-stage commit --all-files
-      - cmd: $PY_RUNNER pre-commit run --hook-stage push --all-files
-      - cmd: $PY_RUNNER pre-commit run --hook-stage manual --all-files
+      - cmd: prek run --stage pre-commit --all-files
+      - cmd: prek run --stage pre-push --all-files
+      - cmd: prek run --stage manual --all-files
 
   test:
     desc: Run pytest
@@ -131,7 +132,7 @@ tasks:
   pytest:
     desc: Run pytest
     cmds:
-      - cmd: $PY_RUNNER pytest $PYTESTARGS tests
+      - cmd: $PY_RUNNER pytest
 
   #############################################################################
   #

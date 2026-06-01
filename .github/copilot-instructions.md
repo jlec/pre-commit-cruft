@@ -24,7 +24,6 @@ flowchart TD
 ```
 
 ### Core Files (Required)
-
 1. `projectbrief.md`
    - Foundation document that shapes all other files
    - Created at project start if it doesn't exist
@@ -67,9 +66,7 @@ flowchart TD
    - Evolution of project decisions
 
 ### Additional Context
-
 Create additional files/folders within memory-bank/ when they help organize:
-
 - Complex feature documentation
 - Integration specifications
 - API documentation
@@ -79,7 +76,6 @@ Create additional files/folders within memory-bank/ when they help organize:
 ## Core Workflows
 
 ### Plan Mode
-
 ```mermaid
 flowchart TD
     Start[Start] --> ReadFiles[Read Memory Bank]
@@ -106,7 +102,6 @@ flowchart TD
 ## Documentation Updates
 
 Memory Bank updates occur when:
-
 1. Discovering new project patterns
 2. After implementing significant changes
 3. When user requests with **update memory bank** (MUST review ALL files)

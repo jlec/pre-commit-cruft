@@ -1,6 +1,6 @@
 [project]
 name = "pre_commit_cruft"
-version = "0.1.2"
+version = "0.0.0"
 description = "Pre-Commit hook for Cruft"
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
@@ -13,27 +13,21 @@ email = "justin@jlec.de"
 
 [dependency-groups]
 dev = [
-  "bpython>=0.25",
-  "ptpython>=3.0.31",
-  "pytest>=8.3.5",
-  "pytest-asyncio>=1.2.0",
+  "bpython>=0.26",
+  "ptpython>=3.0.32",
+  "pytest>=9.0.3",
+  "pytest-asyncio>=1.4.0",
   "pytest-clarity>=1.0.1",
-  "pytest-xdist>=3.6.1",
+  "pytest-xdist>=3.8.0",
 ]
 
-[tool.black]
-line-length = 128
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-tag_format = "v$version"
-update_changelog_on_bump = true
-version = "0.1.2"
-version_files = ["VERSION", "pyproject.toml:version"]
-
 [tool.ruff]
-exclude = ["obsolete"]
 line-length = 128
+target-version = "py314"
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
 
 [tool.ruff.lint]
 ignore = ["B008", "C901"]
