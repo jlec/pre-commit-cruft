@@ -21,7 +21,7 @@ tasks:
     desc: Setup environment
     cmds:
       - task: setup-python
-      - task: setup-pre-commit
+      - task: setup-prek
       - cmd: rm -vf .git/hooks/*legacy
 
   setup-python:
@@ -29,8 +29,8 @@ tasks:
     cmds:
       - cmd: $PY_PM sync --upgrade --dev
 
-  setup-pre-commit:
-    desc: Setup Pre-Commit environment
+  setup-prek:
+    desc: Setup prek environment
     cmds:
       - cmd: prek install
       - cmd: prek install --install-hooks
@@ -105,20 +105,20 @@ tasks:
       - cmd: yamlfmt .
       - cmd: biome format --fix .
   check:
-    desc: Run pre-commit
+    desc: Run prek
     deps:
       - lint
   lint:
-    desc: Run pre-commit
+    desc: Run prek
     deps:
       - linting
   linting:
-    desc: Run pre-commit
+    desc: Run prek
     cmds:
-      - task: pre-commit
+      - task: prek
 
-  pre-commit:
-    desc: Run pre-commit
+  prek:
+    desc: Run prek
     cmds:
       - cmd: prek run --stage pre-commit --all-files
       - cmd: prek run --stage pre-push --all-files
@@ -133,6 +133,17 @@ tasks:
     desc: Run pytest
     cmds:
       - cmd: $PY_RUNNER pytest
+
+  #############################################################################
+  #
+  # AI & IDE options
+  #
+  #############################################################################
+  beads:setup:
+    desc: Setup BEADS
+    cmds:
+      - cmd: bd init --role maintainer
+      - cmd: bd setup claude
 
   #############################################################################
   #

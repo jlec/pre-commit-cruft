@@ -1,6 +1,6 @@
 [project]
 name = "pre_commit_cruft"
-version = "0.0.0"
+version = "0.1.2"
 description = "Pre-Commit hook for Cruft"
 readme = "README.md"
 requires-python = ">=3.12,<4.0"

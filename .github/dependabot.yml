@@ -5,6 +5,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
     open-pull-requests-limit: 8
     assignees:
       - "jlec"
@@ -12,6 +16,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      pre-commit:
+        patterns:
+          - "*"
     open-pull-requests-limit: 8
     assignees:
       - "jlec"
@@ -19,6 +27,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      pip:
+        patterns:
+          - "*"
     open-pull-requests-limit: 8
     assignees:
       - "jlec"
@@ -26,6 +38,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      uv:
+        patterns:
+          - "*"
     open-pull-requests-limit: 8
     assignees:
       - "jlec"

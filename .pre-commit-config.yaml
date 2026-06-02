@@ -7,6 +7,7 @@ default_stages: [pre-commit]
 exclude: >
   (?x)^(
   .ansible|
+  .beads|
   .cache|
   .gitignore|
   .pytest_cache|
@@ -20,11 +21,18 @@ exclude: >
   )
 repos:
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: "v4.16.3"
+    rev: "v4.18.0"
     hooks:
       - id: commitizen
         stages:
           - commit-msg
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.5.10
+    hooks:
+      - id: biome-check
+      - id: biome-ci
+      - id: biome-format
+      - id: biome-lint
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v6.0.0"
     hooks:
@@ -92,24 +100,24 @@ repos:
       # - id: script-must-not-have-extension
       - id: shfmt
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: "v1.1.1"
+    rev: "v1.4.1"
     hooks:
       - id: tombi-format
       - id: tombi-lint
   - repo: https://github.com/betterleaks/betterleaks
-    rev: "v1.3.1"
+    rev: "v1.8.1"
     hooks:
       - id: betterleaks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: "0.37.2"
+    rev: "0.38.0"
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.14.0
+    rev: v2.15.1
     hooks:
       - id: hadolint-docker
   - repo: https://github.com/gitguardian/ggshield
-    rev: "v1.51.0"
+    rev: "v1.54.0"
     hooks:
       - id: ggshield
         stages: ["pre-push"]

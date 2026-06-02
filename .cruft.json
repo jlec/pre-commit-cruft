@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/jlec/cookiecutter-general",
-  "commit": "f89a73c77c9af40d1b836d72739fc8362439cfbb",
+  "commit": "0093614711883b2317d7feb665861c0b947c97b4",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -8,7 +8,7 @@
       "full_name": "Justin Lecher",
       "github_owner": "jlec",
       "github_repo": "pre-commit-cruft",
-      "project_name": "pre-commit hook for cruft",
+      "project_name": "Pre-Commit hook for Cruft",
       "project_short_description": "Pre-Commit hook for Cruft",
       "project_slug": "pre_commit_cruft",
       "project_support_ansible": false,
@@ -32,14 +32,16 @@
       "project_support_terraform_module": false,
       "project_support_terraform_provider": false,
       "project_support_terraform_terragrunt": false,
-      "go_version": "1.25",
+      "go_version": "1.27",
       "python_version": "3.14",
       "scalr_env": "jlec",
       "scalr_workspace": "pre_commit_cruft",
-      "_copy_without_render": ["charts/README.md.gotmpl"],
+      "_copy_without_render": [
+        "charts/README.md.gotmpl"
+      ],
       "_go_app_name": "goer",
       "_template": "https://github.com/jlec/cookiecutter-general",
-      "_commit": "f89a73c77c9af40d1b836d72739fc8362439cfbb"
+      "_commit": "0093614711883b2317d7feb665861c0b947c97b4"
     }
   },
   "directory": null
