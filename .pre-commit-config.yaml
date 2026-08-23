@@ -20,7 +20,7 @@ exclude: >
   )
 repos:
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: "v4.16.3"
+    rev: "v4.18.0"
     hooks:
       - id: commitizen
         stages:
