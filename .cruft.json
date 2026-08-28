@@ -36,9 +36,7 @@
       "python_version": "3.14",
       "scalr_env": "jlec",
       "scalr_workspace": "pre_commit_cruft",
-      "_copy_without_render": [
-        "charts/README.md.gotmpl"
-      ],
+      "_copy_without_render": ["charts/README.md.gotmpl"],
       "_go_app_name": "goer",
       "_template": "https://github.com/jlec/cookiecutter-general",
       "_commit": "0093614711883b2317d7feb665861c0b947c97b4"
